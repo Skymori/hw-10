@@ -18,6 +18,7 @@ public class Main {
                 .limit(15)
                 .collect(Collectors.toList()));
         System.out.println("Task Number Five");
-        System.out.println(HomeWorkTenth.zip(IntStream.range(13,15).boxed(), IntStream.range(6,13).boxed()).collect(Collectors.toList()));
+        System.out.println(HomeWorkTenth.zip(IntStream.range(31, 45).boxed(),
+                IntStream.range(21, 31).boxed()).collect(Collectors.toList()));
     }
 }

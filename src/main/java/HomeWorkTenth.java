@@ -4,7 +4,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
+import java.util.Iterator;
 import static java.util.stream.Collectors.toList;
 
 public class HomeWorkTenth {
@@ -33,17 +33,28 @@ public class HomeWorkTenth {
             throw new RuntimeException("Not Correct parameter");
         }
     }
-    //taskNumberFive
     public static boolean check(long a, long c, long m, long seed){
         return (m>=2
                 && a>=0 && a<m
                 && c>=0 && c<m
                 && seed>=0 && seed<m);
     }
+    //taskNumberFive
     public static <T> Stream<T> zip(Stream<T> first, Stream<T> second){
-        return Stream.concat(first,second).collect(Collectors.collectingAndThen(
-                toList(),list -> { Collections.shuffle(list);
-                    return list.stream();
+        Iterator<T> secondIterator = second.iterator();
+        Stream.Builder<T> builder = Stream.builder();
+        first.forEach((e) -> {
+            if (secondIterator.hasNext()) {
+                builder.accept(e);
+                builder.accept(secondIterator.next());
+            } else {
+                first.close();
+            }
+        });
+        return builder.build().collect(Collectors.collectingAndThen(
+                toList(),
+                list -> { Collections.shuffle(list);
+                        return list.stream();
                 }));
     }
 }
